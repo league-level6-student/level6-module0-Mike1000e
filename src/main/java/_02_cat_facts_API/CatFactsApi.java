@@ -68,7 +68,7 @@ public class CatFactsApi {
 
         //Make the request, saving the response in an object of the type that you just created in your
         //data_transfer_objects package (CatWrapper)
-
+        CatWrapper wrapperCat = new CatWrapper();
 
 
         //Use block() to collect the response into a java object using the class you just created
