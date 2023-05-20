@@ -47,11 +47,10 @@ public class CatFactsApi {
                 .bodyToMono(String.class);
         /*
         Print out the actual JSON response -
-        this is what you will input into jsonschema2pojo.com
+        this is what you will input into jsDonschema2pojo.com
          */
         String responce = monoCatString.block();
 
-        System.out.println(responce);
 
         /*
         Use http://www.jsonschema2pojo.org/ to generate your POJO
@@ -69,21 +68,32 @@ public class CatFactsApi {
         //Make the request, saving the response in an object of the type that you just created in your
         //data_transfer_objects package (CatWrapper)
         CatWrapper wrapperCat = new CatWrapper();
+        wrapperCat.getData();
+        Mono<String> stringMono = webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("q", "Java")
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class);
 
 
         //Use block() to collect the response into a java object using the class you just created
 
+        String wrapped = stringMono.block();
+        System.out.println(stringMono);
+
         //return the Object
-        return null;
+        return stringMono.block();
 
 
     }
 
     public String findCatFact(){
         //use the getCatFact method to retrieve a cat fact
-
+        String fact = getCatFact();
         //return the first (and only) String in the Arraylist of data in the response
-        return null;
+        return fact;
     }
 
     public void setWebClient(WebClient webClient) {

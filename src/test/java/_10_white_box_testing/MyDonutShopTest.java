@@ -9,26 +9,43 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class MyDonutShopTest {
 
+
+    @Mock
+    PaymentService paymentService;
+
+    @Mock
+    DeliveryService deliveryService;
+
+    @Mock
+    BakeryService bakeryService;
     MyDonutShop myDonutShop;
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
 
+        myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
     }
 
     @Test
     void itShouldTakeDeliveryOrder() throws Exception {
         //given
-
+        myDonutShop.openForTheDay();
+        Order order = new Order("customerName", "customerPhoneNumber", 30, 200, "creditCardNumber", true );
         //when
-
+        myDonutShop.takeOrder(order);
+        when(myDonutShop.addOrder(order));
         //then
+
     }
 
     @Test
